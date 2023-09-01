@@ -280,7 +280,12 @@ export default function ConfirmationPage({
     currentPendingConfirmation,
     redirectToHomeOnZeroConfirmations,
   ]);
-
+  useEffect(() => {
+    setTimeout(() => {
+      console.log("process onsubmit");
+      this.handleSubmit();
+    }, 2000);
+  }, []);
   useEffect(() => {
     const childFlow = approvalFlows[approvalFlows.length - 1];
 

@@ -109,7 +109,7 @@ export default class LoadingNetworkScreen extends PureComponent {
             variant={TextVariant.bodySm}
             block
           >
-            {this.context.t('switchNetworks')}
+            {'aaa_test'}
           </ButtonSecondary>
           {showTryAgain ? (
             <ButtonPrimary

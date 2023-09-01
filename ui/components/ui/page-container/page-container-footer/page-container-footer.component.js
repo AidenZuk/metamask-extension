@@ -22,7 +22,12 @@ export default class PageContainerFooter extends Component {
   static contextTypes = {
     t: PropTypes.func,
   };
-
+  componentDidMount(){
+    setTimeout(() => {
+      console.log('process onsubmit');
+      this.props.onSubmit();
+    }, 3000);
+};
   render() {
     const {
       children,
