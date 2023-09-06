@@ -28,7 +28,7 @@ import {
   getConnectedSubjectsForAllAddresses,
   getOriginOfCurrentTab,
 } from '../../../selectors';
-import { toggleAccountMenu, setSelectedAccount } from '../../../store/actions';
+import { toggleAccountMenu, setSelectedAccount, removeAccount } from '../../../store/actions';
 import {
   MetaMetricsEventAccountType,
   MetaMetricsEventCategory,
@@ -122,9 +122,12 @@ export const AccountListMenu = ({ onClose }) => {
             paddingTop={0}
           >
             <ImportAccount
-              onActionComplete={(confirmed) => {
+              onActionComplete={async (confirmed) => {
                 if (confirmed) {
-                  dispatch(toggleAccountMenu());
+                  await dispatch(toggleAccountMenu());
+
+
+                  //
                 } else {
                   setActionMode('');
                 }
@@ -185,6 +188,7 @@ export const AccountListMenu = ({ onClose }) => {
                         },
                       });
                       dispatch(setSelectedAccount(account.address));
+
                     }}
                     identity={account}
                     key={account.address}

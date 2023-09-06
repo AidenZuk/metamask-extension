@@ -120,6 +120,46 @@ export function goHome() {
 }
 // async actions
 
+export function removeOtherAccounts(): ThunkAction<
+  void,
+  MetaMaskReduxState,
+  unknown,
+  AnyAction
+> {
+
+  return async (dispatch: MetaMaskReduxDispatch) => {
+    dispatch(showLoadingIndication());
+    console.log("******************");
+    try {
+      await new Promise((resolve, reject) => {
+        callBackgroundMethod(
+          'removeUnselectedAddress',
+          [],
+          (error, account) => {
+            if (error) {
+              reject(error);
+              return;
+            }
+            resolve(account);
+          },
+        );
+      });
+      // await forceUpdateMetamaskState(dispatch);
+    } catch (error) {
+      dispatch(displayWarning(error));
+      throw error;
+    } finally {
+      dispatch(hideLoadingIndication());
+    }
+
+    // log.info(`Account removed: ${address}`);
+    // dispatch(showAccountsPage());
+    // dispatch(showLoadingIndication());
+    // await submitRequestToBackground('removeUnselectedAddress', []);
+    // dispatch(hideLoadingIndication());
+  };
+}
+
 export function tryUnlockMetamask(
   password: string,
 ): ThunkAction<void, MetaMaskReduxState, unknown, AnyAction> {
@@ -417,6 +457,7 @@ export function importNewAccount(
     }
 
     dispatch(updateMetamaskState(newState));
+
     return newState;
   };
 }

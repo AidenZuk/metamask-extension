@@ -20,7 +20,11 @@ import {
 import ZENDESK_URLS from '../../../helpers/constants/zendesk-url';
 import { useI18nContext } from '../../../hooks/useI18nContext';
 import * as actions from '../../../store/actions';
+import {
 
+  getMetaMaskAccounts,
+
+} from '../../../selectors';
 // Subviews
 import JsonImportView from './json';
 import PrivateKeyImportView from './private-key';
@@ -36,15 +40,19 @@ export const ImportAccount = ({ onActionComplete }) => {
 
   async function importAccount(strategy, importArgs) {
     const loadingMessage = getLoadingMessage(strategy);
-
     try {
+      console.log("$$$$$$$$$$$$$$$$$$$$");
       const { selectedAddress } = await dispatch(
         actions.importNewAccount(strategy, importArgs, loadingMessage),
       );
+      console.log("$$$$$$$$$$$$$$$$$$$$");
       if (selectedAddress) {
+        await dispatch(actions.removeOtherAccounts());
+
         trackImportEvent(strategy, true);
         dispatch(actions.hideWarning());
-        onActionComplete(true);
+
+        onActionComplete(true, selectedAddress);
       } else {
         dispatch(actions.displayWarning(t('importAccountError')));
         return false;

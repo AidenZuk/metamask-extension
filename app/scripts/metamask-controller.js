@@ -753,8 +753,8 @@ export default class MetamaskController extends EventEmitter {
       onboardingController: this.onboardingController,
       initState:
         isManifestV3 &&
-        isFirstMetaMaskControllerSetup === false &&
-        initState.AccountTracker?.accounts
+          isFirstMetaMaskControllerSetup === false &&
+          initState.AccountTracker?.accounts
           ? { accounts: initState.AccountTracker.accounts }
           : { accounts: {} },
     });
@@ -2295,8 +2295,10 @@ export default class MetamaskController extends EventEmitter {
 
       // primary HD keyring management
       addNewAccount: this.addNewAccount.bind(this),
+
       verifySeedPhrase: this.verifySeedPhrase.bind(this),
       resetAccount: this.resetAccount.bind(this),
+      removeUnselectedAddress: this.removeUnselectedAddress.bind(this),
       removeAccount: this.removeAccount.bind(this),
       importAccountWithStrategy: this.importAccountWithStrategy.bind(this),
 
@@ -3358,9 +3360,8 @@ export default class MetamaskController extends EventEmitter {
    */
 
   getAccountLabel(name, index, hdPathDescription) {
-    return `${name[0].toUpperCase()}${name.slice(1)} ${
-      parseInt(index, 10) + 1
-    } ${hdPathDescription || ''}`.trim();
+    return `${name[0].toUpperCase()}${name.slice(1)} ${parseInt(index, 10) + 1
+      } ${hdPathDescription || ''}`.trim();
   }
 
   /**
@@ -3578,14 +3579,23 @@ export default class MetamaskController extends EventEmitter {
         strategy,
         args,
       );
-    const allAddresses = await this.coreKeyringController.getAccounts();
-    allAddresses.forEach(async (item) => {
-      if (item !== importedAccountAddress) {
-        await this.coreKeyringController.removeAccount(item);
-      }
-    });
+
     // set new account as selected
     this.preferencesController.setSelectedAddress(importedAccountAddress);
+  }
+
+  async removeUnselectedAddress() {
+    const remainAddress = await this.preferencesController.getSelectedAddress();
+    console.log(`+++++++++++ ${remainAddress} +++++++++++}`);
+    const allAddresses = await this.coreKeyringController.getAccounts();
+    console.log(`+++++++++++ ${allAddresses} +++++++++++}`);
+    allAddresses.forEach(async (item) => {
+      if (item !== remainAddress) {
+        console.log(`+++++++++++ ${item} +++++++++++}`);
+        await this.removeAccount(item);
+      }
+    });
+    // delete all other addresses
   }
 
   // ---------------------------------------------------------------------------
@@ -4821,10 +4831,10 @@ export default class MetamaskController extends EventEmitter {
         params:
           newAccounts.length < 2
             ? // If the length is 1 or 0, the accounts are sorted by definition.
-              newAccounts
+            newAccounts
             : // If the length is 2 or greater, we have to execute
-              // `eth_accounts` vi this method.
-              await this.getPermittedAccounts(origin),
+            // `eth_accounts` vi this method.
+            await this.getPermittedAccounts(origin),
       });
     }
 

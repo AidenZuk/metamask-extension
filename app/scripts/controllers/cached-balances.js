@@ -55,7 +55,7 @@ export default class CachedBalancesController {
     Object.keys(newAccounts).forEach((accountID) => {
       const account = newAccounts[accountID];
 
-      if (account.balance) {
+      if (account?.balance) {
         currentChainBalancesToCache[accountID] = account.balance;
       }
     });

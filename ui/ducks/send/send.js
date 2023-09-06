@@ -514,7 +514,7 @@ export const computeEstimatedGasLimit = createAsyncThunk(
           to: draftTransaction.recipient.address?.toLowerCase(),
           value:
             send.amountMode === AMOUNT_MODES.MAX
-              ? send.selectedAccount.balance
+              ? send.selectedAccount?.balance
               : draftTransaction.amount.value,
           from: send.selectedAccount.address,
           data: draftTransaction.userInputHexData,

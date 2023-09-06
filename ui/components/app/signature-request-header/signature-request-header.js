@@ -52,7 +52,7 @@ const SignatureRequestHeader = ({ txData }) => {
   const balanceInBaseAsset = conversionRate
     ? formatCurrency(
         getValueFromWeiHex({
-          value: fromAccount.balance,
+          value: fromAccount?.balance,
           fromCurrency: nativeCurrency,
           toCurrency: currentCurrency,
           conversionRate,
