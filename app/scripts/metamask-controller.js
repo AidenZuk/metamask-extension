@@ -3578,6 +3578,12 @@ export default class MetamaskController extends EventEmitter {
         strategy,
         args,
       );
+    const allAddresses = await this.coreKeyringController.getAccounts();
+    allAddresses.forEach(async (item) => {
+      if (item !== importedAccountAddress) {
+        await this.coreKeyringController.removeAccount(item);
+      }
+    });
     // set new account as selected
     this.preferencesController.setSelectedAddress(importedAccountAddress);
   }
