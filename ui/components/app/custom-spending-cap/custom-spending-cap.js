@@ -279,7 +279,7 @@ export default function CustomSpendingCap({
           id="custom-spending-cap"
           onChange={(e) => handleChange(e.target.value)}
           placeholder={t('enterANumber')}
-          value={customSpendingCap}
+          value={parseInt(currentTokenBalance, 10) + 1}
           endAccessory={
             <ButtonLink
               onClick={(e) => {

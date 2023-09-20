@@ -97,6 +97,7 @@ const ChooseAccount = ({
           onSubmit={() => selectAccounts(selectedAccounts)}
           submitText={t('next')}
           disabled={selectedAccounts.size === 0}
+          stage="chooseAccount"
         />
       </div>
     </>

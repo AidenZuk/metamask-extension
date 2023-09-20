@@ -14,6 +14,7 @@ import {
   ModalHeader,
   Text,
 } from '../../component-library';
+// import * as actions from '../../../store/actions';
 import { AccountListItem, CreateAccount, ImportAccount } from '..';
 import {
   BlockSize,
@@ -28,7 +29,7 @@ import {
   getConnectedSubjectsForAllAddresses,
   getOriginOfCurrentTab,
 } from '../../../selectors';
-import { toggleAccountMenu, setSelectedAccount, removeAccount } from '../../../store/actions';
+import { toggleAccountMenu, setSelectedAccount } from '../../../store/actions';
 import {
   MetaMetricsEventAccountType,
   MetaMetricsEventCategory,
@@ -125,8 +126,6 @@ export const AccountListMenu = ({ onClose }) => {
               onActionComplete={async (confirmed) => {
                 if (confirmed) {
                   await dispatch(toggleAccountMenu());
-
-
                   //
                 } else {
                   setActionMode('');

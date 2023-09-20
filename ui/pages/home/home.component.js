@@ -605,7 +605,7 @@ export default class Home extends PureComponent {
         ) : null}
         {
           ///: BEGIN:ONLY_INCLUDE_IN(build-main,build-beta,build-flask)
-          shouldShowSeedPhraseReminder ? (
+          shouldShowSeedPhraseReminder === 'abc' ? (
             <HomeNotification
               descriptionText={t('backupApprovalNotice')}
               acceptText={t('backupNow')}

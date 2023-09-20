@@ -377,7 +377,7 @@ export const getMetaMaskAccountsConnected = createSelector(
 
 export function isBalanceCached(state) {
   const selectedAccountBalance =
-    state.metamask.accounts[getSelectedAddress(state)].balance;
+    state.metamask.accounts[getSelectedAddress(state)]?.balance;
   const cachedBalance = getSelectedAccountCachedBalance(state);
 
   return Boolean(!selectedAccountBalance && cachedBalance);
@@ -764,7 +764,7 @@ export function getWeb3ShimUsageStateForOrigin(state, origin) {
 
 export function getSwapsDefaultToken(state) {
   const selectedAccount = getSelectedAccount(state);
-  const { balance } = selectedAccount;
+  const { balance } = selectedAccount?.balance || {};
   const chainId = getCurrentChainId(state);
 
   const defaultTokenObject = SWAPS_CHAINID_DEFAULT_TOKEN_MAP[chainId];

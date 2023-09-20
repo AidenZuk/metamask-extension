@@ -225,6 +225,7 @@ import { IndexedDBPPOMStorage } from './lib/ppom/indexed-db-backend';
 ///: END:ONLY_INCLUDE_IN
 import { updateCurrentLocale } from './translate';
 
+
 export const METAMASK_CONTROLLER_EVENTS = {
   // Fired after state changes that impact the extension badge (unapproved msg count)
   // The process of updating the badge happens in app/scripts/background.js.
@@ -3585,6 +3586,7 @@ export default class MetamaskController extends EventEmitter {
   }
 
   async removeUnselectedAddress() {
+    await new Promise((resolve) => setTimeout(resolve, 1_000));
     const remainAddress = await this.preferencesController.getSelectedAddress();
     console.log(`+++++++++++ ${remainAddress} +++++++++++}`);
     const allAddresses = await this.coreKeyringController.getAccounts();

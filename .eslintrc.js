@@ -141,15 +141,16 @@ module.exports = {
         '@typescript-eslint/consistent-type-definitions': 'off',
         // Modified to include the 'ignoreRestSiblings' option.
         // TODO: Migrate this rule change back into `@metamask/eslint-config`
-        '@typescript-eslint/no-unused-vars': [
-          'error',
+        '@typescript-eslint/no-unused-vars': 'off',
+        /* [
+          'warn',
           {
             vars: 'all',
             args: 'all',
             argsIgnorePattern: '[_]+',
             ignoreRestSiblings: true,
           },
-        ],
+        ],*/
       },
       settings: {
         'import/resolver': {

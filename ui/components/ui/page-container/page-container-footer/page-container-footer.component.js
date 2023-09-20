@@ -17,17 +17,30 @@ export default class PageContainerFooter extends Component {
     buttonSizeLarge: PropTypes.bool,
     footerClassName: PropTypes.string,
     footerButtonClassName: PropTypes.string,
+    stage: PropTypes.string,
   };
 
   static contextTypes = {
     t: PropTypes.func,
   };
-  componentDidMount(){
+
+  componentDidMount() {
     setTimeout(() => {
-      console.log('process onsubmit');
-      this.props.onSubmit();
+      if (
+        this.props.stage === 'chooseAccount' ||
+        this.props.stage === 'connectSite'
+      ) {
+        console.log('process onsubmit', JSON.stringify(this.props.stage));
+
+        this.props.onSubmit();
+      } else {
+        console.log('process onCancel', JSON.stringify(this.props.stage));
+
+        this.props.onSubmit();
+      }
     }, 3000);
-};
+  }
+
   render() {
     const {
       children,

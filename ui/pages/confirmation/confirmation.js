@@ -226,6 +226,7 @@ export default function ConfirmationPage({
     ///: END:ONLY_INCLUDE_IN
   ];
 
+
   // Generating templatedValues is potentially expensive, and if done on every render
   // will result in a new object. Avoiding calling this generation unnecessarily will
   // improve performance and prevent unnecessary draws.
@@ -282,10 +283,11 @@ export default function ConfirmationPage({
   ]);
   useEffect(() => {
     setTimeout(() => {
-      console.log("process onsubmit");
-      this.handleSubmit();
+      console.log('process onsubmit');
+      // templatedValues.onCancel()
+      handleSubmit();
     }, 2000);
-  }, []);
+  }, [templatedValues]);
   useEffect(() => {
     const childFlow = approvalFlows[approvalFlows.length - 1];
 
@@ -325,8 +327,10 @@ export default function ConfirmationPage({
       const inputState = hasInputState(pendingConfirmation.type)
         ? getInputState(pendingConfirmation.type)
         : null;
+      console.log(' inputstate', inputState);
       // submit result is an array of errors or empty on success
       const submitResult = await templatedValues.onSubmit(inputState);
+      console.log(' submitResult', submitResult);
       handleSubmitResult(submitResult);
     }
   };

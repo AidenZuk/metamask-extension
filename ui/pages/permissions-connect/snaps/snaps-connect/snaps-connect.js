@@ -232,6 +232,7 @@ export default function SnapsConnect({
         cancelText={t('cancel')}
         onSubmit={onConnect}
         submitText={t('connect')}
+        stage="connectSite"
       />
     </Box>
   );

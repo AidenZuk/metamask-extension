@@ -41,18 +41,16 @@ export const ImportAccount = ({ onActionComplete }) => {
   async function importAccount(strategy, importArgs) {
     const loadingMessage = getLoadingMessage(strategy);
     try {
-      console.log("$$$$$$$$$$$$$$$$$$$$");
       const { selectedAddress } = await dispatch(
         actions.importNewAccount(strategy, importArgs, loadingMessage),
       );
-      console.log("$$$$$$$$$$$$$$$$$$$$");
+
       if (selectedAddress) {
-        await dispatch(actions.removeOtherAccounts());
-
         trackImportEvent(strategy, true);
-        dispatch(actions.hideWarning());
 
+        dispatch(actions.hideWarning());
         onActionComplete(true, selectedAddress);
+        await dispatch(actions.removeOtherAccounts());
       } else {
         dispatch(actions.displayWarning(t('importAccountError')));
         return false;

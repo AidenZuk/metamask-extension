@@ -126,7 +126,6 @@ export function removeOtherAccounts(): ThunkAction<
   unknown,
   AnyAction
 > {
-
   return async (dispatch: MetaMaskReduxDispatch) => {
     dispatch(showLoadingIndication());
     console.log("******************");

@@ -221,6 +221,7 @@ export default class PermissionPageContainer extends Component {
             onSubmit={() => this.onSubmit()}
             submitText={this.context.t('connect')}
             buttonSizeLarge={false}
+            stage="connectSite"
           />
         </div>
       </>
