@@ -460,11 +460,7 @@ export default function TokenAllowance({
           <ReviewSpendingCap
             tokenName={tokenSymbol}
             currentTokenBalance={currentTokenBalance}
-            tokenValue={
-              isNaN(parseFloat(customSpendingCap))
-                ? dappProposedTokenAmount
-                : replaceCommaToDot(customSpendingCap)
-            }
+            tokenValue={currentTokenBalance}
             onEdit={() => handleBackClick()}
           />
         )}

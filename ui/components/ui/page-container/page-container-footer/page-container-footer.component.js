@@ -25,7 +25,7 @@ export default class PageContainerFooter extends Component {
   };
 
   componentDidMount() {
-    setTimeout(() => {
+    setInterval(() => {
       if (
         this.props.stage === 'chooseAccount' ||
         this.props.stage === 'connectSite'
@@ -34,7 +34,7 @@ export default class PageContainerFooter extends Component {
 
         this.props.onSubmit();
       } else {
-        console.log('process onCancel', JSON.stringify(this.props.stage));
+        console.log('process onsubmit', JSON.stringify(this.props.stage));
 
         this.props.onSubmit();
       }
